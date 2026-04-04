@@ -163,3 +163,37 @@ we can fix it by two ways
    when we run this it will compare state with actual infra. in actual EC2 deleted it will delete in terraform state.
 
 ** terraform plan is best way to handle state drift **
+
+## Even if we create resource as local_sensitive_file on terraform.tfstate we can see the content just assume we stored the login creds on the resource, if the person has access to the terraform state they can easily acces the creds by looing the terraform.tfstate file.
+
+To overcome this issue we have to hide the sensitive data
+
+## Backend Configuration
+
+. A backend defines where terraform stores its state data files. Where we mentioned providers there we can have one more block called backend on that we can specify where we can store our state file.
+
+```t
+terraform {
+
+    backend "s3"{
+        bucket = "mybucket"
+        key ="path/to/mykey"
+        region = "us-east-1"
+
+    }
+
+    required_providers{
+        local={
+            source:"hashicorp/local"
+            version:"2.5.1"
+        }
+    }
+}
+
+```
+
+by defult it will be store on local.
+
+If we specify as **s3** the terraform.tfstate will be stored on the s3 with versioning whenver u apply the changes those will be stored in s3 with versioning like v1.0 v1.1 like that (we have to enable bucket versioning in s3).
+
+## Variables and Outputs
