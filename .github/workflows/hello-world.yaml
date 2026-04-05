@@ -9,3 +9,9 @@ jobs:
     steps:
       - name: Say Hello
         run: echo "Hello world!"
+
+  say-hello-inline-python:
+    runs-on: ubuntu-latest
+    steps:
+      - run: print("Hello world!")
+        shell: python
