@@ -196,4 +196,45 @@ by defult it will be store on local.
 
 If we specify as **s3** the terraform.tfstate will be stored on the s3 with versioning whenver u apply the changes those will be stored in s3 with versioning like v1.0 v1.1 like that (we have to enable bucket versioning in s3).
 
+### Optimization's
+
+optimization of code is ntg but writing code in a best way on .tf files
+
+1. variables and outputs
+2. create a terraform module
+
 ## Variables and Outputs
+
+Types:-
+**Input variables**
+
+```t
+variable "aws_region"{
+    description = "Aws region"
+    type        = string
+    default     = "us-west-2"
+}
+
+```
+
+**Output variable**
+
+```t
+output "instance_ip_address"{
+    value = aws_instance.server.private_ip
+}
+
+```
+
+**Local variables**
+
+```t
+local {
+    service_name = "form"
+    owner        = "community team"
+}
+```
+
+we can give values of variables via cli as well
+
+`tf plan -var="aws_region=ap-south-1"`
