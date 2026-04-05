@@ -238,3 +238,20 @@ local {
 we can give values of variables via cli as well
 
 `tf plan -var="aws_region=ap-south-1"`
+
+## Terraform Modules
+
+A self-contained package for multiple resources that are used together.
+
+##### Types:-
+
+            Root module (default)
+            Child module
+            Published module
+
+Child module ex:-
+"Storage" -> root module
+RDS -> child modules
+S3 -> child modules
+
+published module:- prepared modules by different cloud providers
